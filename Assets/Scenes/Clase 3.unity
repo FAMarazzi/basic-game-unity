@@ -942,6 +942,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136afe7eca126f0498098545467cc06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveTest
+  camWidth: 4.1
+  camHeight: 9.4
+  speed: 5
 --- !u!1 &1950616129
 GameObject:
   m_ObjectHideFlags: 0

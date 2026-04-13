@@ -16,8 +16,9 @@ public class PlayerShoot : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject bullet = Instantiate(bulletPrefab);
-            bullet.transform.position = nozzle.transform.position;
+            // Puedo instanciar el prefab con la posición del nozzle y la rotación 
+            // en una sóla línea (en este caso no importa la rotación)
+            Instantiate(bulletPrefab, nozzle.position, nozzle.rotation);
         }
     }
 }
