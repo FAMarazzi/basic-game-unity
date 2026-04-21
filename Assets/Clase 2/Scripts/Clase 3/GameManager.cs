@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     // ===== AGREGADO =====
     [Header("Inicio del Juego")]
     public bool start = false; // MISMO nombre que usabas
+    public bool gameOver=false;
     public GameObject startText; // MISMO nombre
 
     private void Awake()
@@ -62,6 +63,16 @@ public class GameManager : MonoBehaviour
         {
             scoreText.text = "Score: " + score.ToString("D4");
         }
+    }
+    public void GameOver()
+    {
+        gameOver = true;
+
+        Debug.Log("GAME OVER");
+
+        // TODO:
+        // - cambiar escena
+        // - mostrar UI
     }
 
     public int GetCurrentScore()

@@ -45,14 +45,20 @@ public class PlayerMove : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
-        // Permite arrancar con la primera tecla
+        // si el juego terminó, no hacer nada, salir del update
+        if (GameManager.Instance.gameOver)
+        {
+            return;
+        }
+        
+        //inicio del juego
         if (!GameManager.Instance.start)
         {
             if (inputX != 0 || inputY != 0)
             {
                 GameManager.Instance.ActivarInicio();
             }
-            return; // corta acá solo si todavía no empezó
+            return;
         }
         
         Vector2 rotateDirection = new Vector2(inputX, inputY);

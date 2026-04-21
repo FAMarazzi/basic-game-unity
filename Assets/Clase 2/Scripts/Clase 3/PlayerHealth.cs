@@ -57,8 +57,7 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("GAME OVER");
-
-        // TODO: ESTO TENGO QUE CONECTARLO AL LEVEL MANAGER DESPUES
+        GameManager.Instance.GameOver();
         gameObject.SetActive(false);
     }
 

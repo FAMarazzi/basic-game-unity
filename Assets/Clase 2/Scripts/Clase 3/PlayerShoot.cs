@@ -24,7 +24,10 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.start) return;
+        if (!GameManager.Instance.start || GameManager.Instance.gameOver)
+        {
+            return;
+        }
         //al ser un método void puedo retornar para abandonar el método en cada frame
         //en el que el start del gamemanager no sea true, si es true, ya dejo de retornar
         //y ejecuto el método con normalidad.
