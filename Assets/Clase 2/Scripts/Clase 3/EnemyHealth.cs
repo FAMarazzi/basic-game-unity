@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyHealthTest : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 { 
     [SerializeField] private float healthTest = 40;
 
@@ -11,7 +11,7 @@ public class EnemyHealthTest : MonoBehaviour
         healthTest -= damage;
         Debug.Log("Enemy took damage. Current health: " + healthTest);
 
-        GameManagerTest.Instance.AddScore((int)damage);
+        GameManager.Instance.AddScore((int)damage);
 
         if (healthTest <= 0)
         {
