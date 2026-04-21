@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5199739547689503250}
   serializedVersion: 2
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.475, y: 0.475, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2945d2c1b59ee224fb32b66500e9ce74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviourTest
+  player: {fileID: 0}
 --- !u!114 &1744439671031716531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,4 +193,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77406b1b4b74a244db09c494059352aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthTest
-  healthTest: 40
+  health: 40
+  scoreValue: 100

@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    private float speed;
+    [SerializeField] private float speed=1;
     private bool movingLeft;
     private Camera cam;
 
@@ -18,9 +18,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //debo asignarlo de esta manera ya que no se permite poner 
+        // algo del gameobject en un prefab (el gameobject aún no fue instanciado)
+
         cam = Camera.main;
         // Asignamos una velocidad aleatoria entre 2 y 6
-        speed = Random.Range(1.5f, 3.5f);
     }
 
     void Update()
