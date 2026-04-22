@@ -28,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
         {
             return;
         }
+        Debug.Log("Update Shoot corriendo");
         //al ser un método void puedo retornar para abandonar el método en cada frame
         //en el que el start del gamemanager no sea true, si es true, ya dejo de retornar
         //y ejecuto el método con normalidad.
@@ -36,6 +37,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && fireTimer >= fireRate)
         {
+            Debug.Log("Está detectando barra esp");
             Instantiate(bulletPrefab, nozzle.position, nozzle.rotation);
             fireTimer = 0f;
         }

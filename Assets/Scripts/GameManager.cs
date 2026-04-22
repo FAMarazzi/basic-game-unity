@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("Estadísticas del Juego")]
     [SerializeField] private int score = 0;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text livesText;
 
     // ===== AGREGADO =====
     [Header("Inicio del Juego")]
@@ -64,6 +65,12 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score.ToString("D4");
         }
     }
+    public void ShowLives(int currentLives)
+    {
+        livesText.text = "Vidas: " + currentLives;
+    }
+
+    
     public void GameOver()
     {
         gameOver = true;
@@ -73,6 +80,13 @@ public class GameManager : MonoBehaviour
         // TODO:
         // - cambiar escena
         // - mostrar UI
+
+        EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
+        if (spawner != null)
+        {
+            spawner.StopSpawning();
+        }
+
     }
 
     public int GetCurrentScore()

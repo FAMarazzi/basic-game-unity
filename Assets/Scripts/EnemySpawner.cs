@@ -1,3 +1,11 @@
+/**
+ * @author Federico Marazzi
+ * @email federicoandresmarazzi@gmail.com
+ * @create date 2026-04-21 20:36:04
+ * @modify date 2026-04-21 20:36:04
+ * @desc [description]
+ */
+
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -14,6 +22,10 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
+         if (!GameManager.Instance.start || GameManager.Instance.gameOver)
+        {
+            return;
+        }
         // Calculamos los límites de la cámara en el mundo real
         float spawnX = cam.ViewportToWorldPoint(new Vector3(1.1f, 0, 0)).x; // Justo a la derecha
         
@@ -22,5 +34,10 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(spawnX, randomY, 0);
         Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    }
+
+    public void StopSpawning()
+    {
+        CancelInvoke("SpawnEnemy");
     }
 }

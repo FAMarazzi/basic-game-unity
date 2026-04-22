@@ -6,7 +6,7 @@
  * @desc [description]
  */
 
-
+using System.Collections; //importo la librería para el IEnumerator
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -16,11 +16,15 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private Transform spawnPoint;
     private bool isDead = false;
+    [SerializeField] private float blinkInterval = 0.1f;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentLives = maxLives;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        GameManager.Instance.ShowLives(currentLives);
     }
 
     // Update is called once per frame
@@ -30,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
         currentLives-=damage;
         Debug.Log("Vidas restantes: " +currentLives);
+        GameManager.Instance.ShowLives(currentLives);
 
         if(currentLives>0)
         {
@@ -41,7 +46,23 @@ public class PlayerHealth : MonoBehaviour
         }
 
     }
-    
+
+    //función para parpadear cuando respawnea mientras
+    //no es vulnerable
+    IEnumerator BlinkEffect(float duration)
+    {
+    float timer = 0f;
+
+    while (timer < duration)
+    {
+        spriteRenderer.enabled = !spriteRenderer.enabled;
+
+        yield return new WaitForSeconds(blinkInterval);
+        timer += blinkInterval;
+    }
+
+    spriteRenderer.enabled = true;
+    }
     void Respawn()
     {
         isDead = true;
@@ -49,11 +70,13 @@ public class PlayerHealth : MonoBehaviour
         transform.position = spawnPoint.position; 
         //el transform position se mueve automáticamente a la posición de respawn
 
+        StartCoroutine(BlinkEffect(1f)); // arranca y establece duración del efecto de parpadeo
         // pequeño delay que puse para evitar daño cuando recién apareces
         //llama a una función que devuelve el estado muerto a falso pero en 2 segundos
-        Invoke(nameof(RestoreVulnerability), 0.2f);
+        Invoke(nameof(RestoreVulnerability), 1f);
         
     }
+    
     void Die()
     {
         Debug.Log("GAME OVER");

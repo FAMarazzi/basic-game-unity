@@ -30,19 +30,22 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-            if(collision.gameObject.CompareTag("Enemies"))
+        if (collision.gameObject.CompareTag("Player"))
+        {
+        return;
+        }
+        if(collision.gameObject.CompareTag("Enemies"))
+        {
+            Debug.Log("Bullet hit an enemy!");
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                Debug.Log("Bullet hit an enemy!");
-                EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
-                {
-                    enemyHealth.TakeDamage(damage); // Aplica daño al enemigo
-                    explosion.CreateExplosion(transform.position); // Crea la explosión en la posición de la bala
-                    
-                }
+                enemyHealth.TakeDamage(damage); // Aplica daño al enemigo
+                explosion.CreateExplosion(transform.position); // Crea la explosión en la posición de la bala
+                
             }
+        }
 
-
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
