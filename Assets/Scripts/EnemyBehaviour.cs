@@ -48,7 +48,6 @@ public class EnemyBehaviour : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Colisionaste con " +collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
             var playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
