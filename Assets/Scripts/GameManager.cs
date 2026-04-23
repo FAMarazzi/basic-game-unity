@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int score = 0;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text livesText;
+    [SerializeField] private GameObject gameOverText;
 
     // ===== AGREGADO =====
     [Header("Inicio del Juego")]
@@ -77,18 +79,27 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GAME OVER");
 
-        // TODO:
-        // - cambiar escena
-        // - mostrar UI
+        // mostrar UI
+        if (gameOverText != null)
+        {
+            gameOverText.SetActive(true);
+        }
 
+        // frenar spawn
         EnemySpawner spawner = FindObjectOfType<EnemySpawner>();
         if (spawner != null)
         {
             spawner.StopSpawning();
         }
 
-    }
+        // volver al menú después de 2 segundos
+        Invoke(nameof(LoadMenu), 2f);
 
+    }
+    void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
     public int GetCurrentScore()
     {
         return score;
