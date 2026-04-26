@@ -72,8 +72,8 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
-        // ignoro las colisiones físicas entre la capa Jugador y Enemigos mientras está parpadeando y recién spawneado
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Jugador"), LayerMask.NameToLayer("Enemigos"), true);
+        // ignoro las colisiones físicas entre la capa Player y Enemies mientras está parpadeando y recién spawneado
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), true);
 
         transform.position = spawnPoint.position; 
         //el transform position se mueve automáticamente a la posición de respawn
@@ -95,7 +95,7 @@ public class PlayerHealth : MonoBehaviour
     void RestoreVulnerability()
     {
         isDead=false;
-        // vuelvo a activar las colisiones físicas entre Jugador y Enemigos
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Jugador"), LayerMask.NameToLayer("Enemigos"), false);
+        // vuelvo a activar las colisiones físicas entre Player y Enemies
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
     }
 }

@@ -37,8 +37,8 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-            if (hitSound != null) AudioSource.PlayClipAtPoint(hitSound, transform.position);
-            // si no murió con este tiro, le tiro la red
+            if (hitSound != null) AudioSource.PlayClipAtPoint(hitSound, transform.position); //si está cargado el sonido, lo reproduzco
+            // si no murió con este tiro, le tiro la red (se pone amarillo y lo hace lento)
             //si murió no se pone amarillo
             EnemyBehaviour behaviour = GetComponent<EnemyBehaviour>();
             if (behaviour != null)
