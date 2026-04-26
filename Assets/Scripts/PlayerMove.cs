@@ -21,11 +21,16 @@ public class PlayerMove : MonoBehaviour
 
     // Dirección actual del movimiento (SIEMPRE se usa para moverse)
     private Vector2 currentDirection = Vector2.up; // arranca yendo hacia arriba
+    //getter para obtenerlo desde el script de disparo y ver para donde apunta
+    public Vector2 CurrentDirection { get { return currentDirection; } }
     Vector2 horzBound;
     Vector2 vertBound;
     [Header("Movimiento del personaje")]
     [SerializeField] private float speed = 5f;
     //determina el tamaño de la vista de la cámara
+
+    private Rigidbody2D rb;
+    private Animator anim;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,6 +41,9 @@ public class PlayerMove : MonoBehaviour
         //-2.1f a 2.1f por ej
         horzBound = new Vector2(-camWidth / 2, camWidth / 2);
         vertBound = new Vector2(-camHeight / 2, camHeight / 2);
+
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -45,67 +53,84 @@ public class PlayerMove : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
-        // si el juego terminó, no hacer nada, salir del update
+        // si el juego terminó salir del update y poner false la animacion de correr
         if (GameManager.Instance.gameOver)
         {
+            if (anim != null) anim.SetBool("isRunning", false);
             return;
         }
         
         //inicio del juego
+        //si no se presiono nada para empezar, salir del update y poner false la animacion de correr
         if (!GameManager.Instance.start)
         {
             if (inputX != 0 || inputY != 0)
             {
                 GameManager.Instance.ActivarInicio();
             }
+            if (anim != null) anim.SetBool("isRunning", false);
             return;
         }
         
         Vector2 rotateDirection = new Vector2(inputX, inputY);
 
-        float moveX = 0f;
-        float moveY = 0f;
+        float velX = 0f;
+        float velY = 0f;
 
         // prioridad horizontal
         if (inputX != 0)
         {
-            moveX = inputX * Time.deltaTime * speed;
+            velX = inputX * speed;
             rotateDirection = new Vector2(inputX, 0);
         }
         else if (inputY != 0) //solamente permito mover en y si no hay presión horiz
         {
-            moveY = inputY * Time.deltaTime * speed; 
+            velY = inputY * speed; 
             rotateDirection = new Vector2(0, inputY);
         }
-        if (rotateDirection != Vector2.zero)
-        {
-            float angle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-        }
         // Si hay input de movimiento, actualizamos la dirección guardada
-        if (moveX != 0)
+        if (velX != 0)
         {
-            currentDirection = new Vector2(Mathf.Sign(moveX), 0);
+            currentDirection = new Vector2(Mathf.Sign(velX), 0);
         }
-        else if (moveY != 0)
+        else if (velY != 0)
         {           
-            currentDirection = new Vector2(0, Mathf.Sign(moveY));
+            currentDirection = new Vector2(0, Mathf.Sign(velY));
         }
         // Si no hay input, usamos la última dirección
-        if (GameManager.Instance.start && moveX == 0 && moveY == 0)
+        if (GameManager.Instance.start && velX == 0 && velY == 0)
         {
-            moveX = currentDirection.x * Time.deltaTime * speed;
-            moveY = currentDirection.y * Time.deltaTime * speed;
+            velX = currentDirection.x * speed;
+            velY = currentDirection.y * speed;
         }
-        //transform.Translate(new Vector3(moveX, moveY, 0));
+
+        rb.linearVelocity = new Vector2(velX, velY);
+
+        if (anim != null)
+        {
+            anim.SetFloat("MoveX", currentDirection.x);
+            anim.SetFloat("MoveY", currentDirection.y);
+            anim.SetBool("isRunning", velX != 0 || velY != 0);
+        }
+
+        // espejar el sprite automáticamente si voy a la derecha (porque el sprite original mira a la izq)
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            if (currentDirection.x < 0) sr.flipX = false;
+            else if (currentDirection.x > 0) sr.flipX = true;
+        }
 
         //limita un valor numérico dentro de un rango, si el valor es menor que el mínimo
         //devuelve el minimo, si es mayor que el max, devuelve el max,
         //si no es ninguno de los dos casos, devuelve el valor original
-        float clampedX = Mathf.Clamp(transform.position.x + moveX, horzBound.x, horzBound.y);
-        float clampedY = Mathf.Clamp(transform.position.y + moveY, vertBound.x, vertBound.y);
+        float clampedX = Mathf.Clamp(transform.position.x, horzBound.x, horzBound.y);
+        float clampedY = Mathf.Clamp(transform.position.y, vertBound.x, vertBound.y);
       
-        transform.position = new Vector3(clampedX, clampedY, 0);
+        if (transform.position.x != clampedX || transform.position.y != clampedY)
+        {
+            transform.position = new Vector3(clampedX, clampedY, 0);
+        }
        
         
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4c19a1c5afd8b0040a3fb263b1c3b043
+guid: 90a7c6fb0edaa1d49887d394691ff224
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3093582906320742404
-    second: hero3_0
+      213: -4604091743434136306
+    second: ENEMIES_PixelPackTOPDOWN8BIT_Sorcerer Walk U_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hero3_0
+      name: ENEMIES_PixelPackTOPDOWN8BIT_Sorcerer Walk U_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 1
         y: 0
-        width: 13
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cf71889bcb26115d0800000000000000
-      internalID: -3093582906320742404
+      spriteID: e05ac4fe3fafa10c0800000000000000
+      internalID: -4604091743434136306
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      hero3_0: -3093582906320742404
+      ENEMIES_PixelPackTOPDOWN8BIT_Sorcerer Walk U_0: -4604091743434136306
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

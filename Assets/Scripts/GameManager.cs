@@ -98,7 +98,8 @@ public class GameManager : MonoBehaviour
     }
     void LoadMenu()
     {
-        SceneManager.LoadScene("Menu");
+        // Cargo la escena por su número de índice
+        SceneManager.LoadScene(0);
     }
     public int GetCurrentScore()
     {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1314978250336972950}
   - component: {fileID: 3124980524679629871}
   - component: {fileID: 1744439671031716531}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5199739547689503250}
   serializedVersion: 2
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.04803, y: -0.56849, z: 0}
   m_LocalScale: {x: 0.475, y: 0.475, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1314978250336972950
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.14}
+  m_Offset: {x: -0.016906917, y: 0.12309307}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.28866667}
@@ -166,7 +166,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9}
+  m_Size: {x: 0.6280476, y: 0.7534733}
   m_EdgeRadius: 0
 --- !u!114 &3124980524679629871
 MonoBehaviour:
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2945d2c1b59ee224fb32b66500e9ce74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviourTest
+  speed: 1
+  enterX: 1.28
   player: {fileID: 0}
 --- !u!114 &1744439671031716531
 MonoBehaviour:
