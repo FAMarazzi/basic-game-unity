@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
     private bool passedWall = false;
     private Camera cam;
     private Rigidbody2D rb;
+    private Animator anim;
+    private bool isSlowed = false; // para saber si ya le pegaron y lo ralentizaron
 
     [SerializeField] private Transform player;
 
@@ -37,6 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -63,14 +66,23 @@ public class EnemyBehaviour : MonoBehaviour
             //sería como hacer un vector hacia el jugador para que siga la dirección mas "directa"
         }
 
-        // Rotación: hace que el sprite mire hacia donde se está moviendo
-        if (direction != Vector2.zero)
+        // le paso la direccion al animator
+        if (anim != null && direction != Vector2.zero)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+            anim.SetFloat("MoveX", direction.x);
+            anim.SetFloat("MoveY", direction.y);
         }
 
-        // Usamos físicas igual que en el Player para que no se queden atascados
+        // espejar el sprite
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            // lo invierto para que apunte bien
+            if (direction.x < 0) sr.flipX = true;
+            else if (direction.x > 0) sr.flipX = false;
+        }
+
+        // uso fisicas para que no se trabe
         if (rb != null)
         {
             rb.linearVelocity = direction * speed;
@@ -95,4 +107,28 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
     }
+
+    public void ApplySlowdown(float slowFactor)
+    {
+        // me aseguro de que no se ralentice 20 veces si le pega mucho
+        if (!isSlowed)
+        {
+            isSlowed = true;
+            speed *= slowFactor;
+            // le cambio el tono dependiendo del nivel
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 2)
+                {
+                    sr.color = new Color(0.85f, 0.8f, 0.1f); // dorado un poco mas oscuro para el lv 2
+                }
+                else
+                {
+                    sr.color = new Color(1f, 0.9f, 0.2f); // amarillo dorado brillante para el nivel 1
+                }
+            }
+        }
+    }
 }
+

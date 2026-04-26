@@ -12,7 +12,10 @@ public class EnemyHealth : MonoBehaviour
 { 
     [SerializeField] private float health = 40;
     [SerializeField] private int scoreValue = 100;
-    private bool isDead=false;
+    private bool isDead = false;
+
+    [SerializeField] private AudioClip hitSound; // sonido al recibir danio
+    [SerializeField] private AudioClip dieSound; // sonido al morir
     
     
     public void TakeDamage(float damage)
@@ -27,9 +30,21 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            if (dieSound != null) AudioSource.PlayClipAtPoint(dieSound, transform.position);
             isDead=true;
             GameManager.Instance.AddScore(scoreValue); //y en el puntaje sumo el valor que me da matar un personaje
             Die();
+        }
+        else
+        {
+            if (hitSound != null) AudioSource.PlayClipAtPoint(hitSound, transform.position);
+            // si no murió con este tiro, le tiro la red
+            //si murió no se pone amarillo
+            EnemyBehaviour behaviour = GetComponent<EnemyBehaviour>();
+            if (behaviour != null)
+            {
+                behaviour.ApplySlowdown(0.5f); // le saca la mitad de la velocidad
+            }
         }
     }
     

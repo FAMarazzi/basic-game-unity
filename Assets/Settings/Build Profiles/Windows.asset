@@ -21,9 +21,11 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/Menu.unity
+    m_path: Assets/Scenes/Menu Knight VS Sorcerers.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Web vs Machines.unity
+    m_path: Assets/Scenes/Lv1.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Lv2.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

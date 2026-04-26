@@ -17,6 +17,7 @@ public class PlayerShoot : MonoBehaviour
     private PlayerMove playerMove;
 
     private float nozzleOffset;
+    [SerializeField] private AudioClip shootSound; // sonido de disparo
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +58,7 @@ public class PlayerShoot : MonoBehaviour
             }
 
             Instantiate(bulletPrefab, nozzle.position, bulletRotation);
+            if (shootSound != null) AudioSource.PlayClipAtPoint(shootSound, transform.position);
             fireTimer = 0f;
         }
     }

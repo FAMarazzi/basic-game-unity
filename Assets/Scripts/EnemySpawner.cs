@@ -12,6 +12,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public float spawnRate = 2f;
+    public int maxEnemiesToSpawn = 10; // max enemigos
+    private int spawnedEnemies = 0; // cuantos salieron
     private Camera cam;
 
     void Start()
@@ -26,6 +28,13 @@ public class EnemySpawner : MonoBehaviour
         {
             return;
         }
+
+        // me fijo si ya salieron todos
+        if (spawnedEnemies >= maxEnemiesToSpawn)
+        {
+            return;
+        }
+
         // Calculamos los límites de la cámara en el mundo real
         float spawnX = cam.ViewportToWorldPoint(new Vector3(1.1f, 0, 0)).x; // Justo a la derecha
         
@@ -34,6 +43,8 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(spawnX, randomY, 0);
         Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        
+        spawnedEnemies++; // le sumo 1
     }
 
     public void StopSpawning()

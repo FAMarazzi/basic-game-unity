@@ -19,6 +19,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float blinkInterval = 0.1f;
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private AudioClip hitSound; // sonido al recibir danio
+    [SerializeField] private AudioClip dieSound; // sonido al morir
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,10 +41,12 @@ public class PlayerHealth : MonoBehaviour
 
         if(currentLives>0)
         {
+            if (hitSound != null) AudioSource.PlayClipAtPoint(hitSound, transform.position);
             Respawn();
         }
         else
         {
+            if (dieSound != null) AudioSource.PlayClipAtPoint(dieSound, transform.position);
             Die();
         }
 

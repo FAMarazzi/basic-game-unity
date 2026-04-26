@@ -64,7 +64,8 @@ public class PlayerMove : MonoBehaviour
         //si no se presiono nada para empezar, salir del update y poner false la animacion de correr
         if (!GameManager.Instance.start)
         {
-            if (inputX != 0 || inputY != 0)
+            // me fijo si paso el tiempo para evitar arrancar por error
+            if (GameManager.Instance.canStart && (inputX != 0 || inputY != 0))
             {
                 GameManager.Instance.ActivarInicio();
             }

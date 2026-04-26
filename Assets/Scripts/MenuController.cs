@@ -15,7 +15,8 @@ public class MenuController : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("Level1");
+            // carga la escena número 1 (nivel 1)
+            SceneManager.LoadScene(1);
         }
     }
 }
